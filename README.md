@@ -11,6 +11,8 @@ AI-powered personalized meal planning platform that creates affordable, nutritio
 
 ## Getting Started
 
+All dependencies install **inside the project folder** — nothing goes to your C drive.
+
 ### Prerequisites
 - Node.js 20+
 - Python 3.11+
@@ -19,17 +21,34 @@ AI-powered personalized meal planning platform that creates affordable, nutritio
 ### Backend
 ```bash
 cd backend
+
+# Create & activate virtual environment (stays in backend/.venv/)
+python -m venv .venv
+.venv\Scripts\activate        # Windows
+# source .venv/bin/activate   # macOS/Linux
+
+# Install dependencies into .venv (not global)
 pip install -e ".[dev]"
-docker compose up -d db
+
+# Start database
+docker compose up -d
+
+# Run migrations & seed data
 alembic upgrade head
-python -m app.db.init_db  # Seed data
+python -m app.db.init_db
+
+# Start API server
 uvicorn app.main:app --reload
 ```
 
 ### Frontend
 ```bash
 cd frontend
+
+# Install dependencies (node_modules/ stays local, npm cache in .npm-cache/)
 npm install
+
+# Start dev server
 npm run dev
 ```
 
