@@ -1,0 +1,16 @@
+[
+  {"food_name": "Rice (White, Raw)", "country_code": "IN", "state_code": "WB", "availability_score": 1.0},
+  {"food_name": "Rice (White, Raw)", "country_code": "IN", "state_code": "KA", "availability_score": 1.0},
+  {"food_name": "Wheat Flour (Atta)", "country_code": "IN", "state_code": "WB", "availability_score": 1.0},
+  {"food_name": "Wheat Flour (Atta)", "country_code": "IN", "state_code": "KA", "availability_score": 1.0},
+  {"food_name": "Poha (Flattened Rice)", "country_code": "IN", "state_code": "MH", "availability_score": 1.0},
+  {"food_name": "Poha (Flattened Rice)", "country_code": "IN", "state_code": "KA", "availability_score": 0.9},
+  {"food_name": "Poha (Flattened Rice)", "country_code": "IN", "state_code": "WB", "availability_score": 0.7},
+  {"food_name": "Rohu Fish", "country_code": "IN", "state_code": "WB", "availability_score": 1.0},
+  {"food_name": "Rohu Fish", "country_code": "IN", "state_code": "KA", "availability_score": 0.4},
+  {"food_name": "Cooking Oil (Mustard)", "country_code": "IN", "state_code": "WB", "availability_score": 1.0},
+  {"food_name": "Cooking Oil (Mustard)", "country_code": "IN", "state_code": "KA", "availability_score": 0.5},
+  {"food_name": "Coconut Oil", "country_code": "IN", "state_code": "KL", "availability_score": 1.0},
+  {"food_name": "Coconut Oil", "country_code": "IN", "state_code": "KA", "availability_score": 0.8},
+  {"food_name": "Coconut Oil", "country_code": "IN", "state_code": "WB", "availability_score": 0.3}
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "condition": "DIABETES",
+    "description": "Limit added sugars and refined carbs, prioritize fiber",
+    "source": "American Diabetes Association Standards of Care 2024",
+    "source_url": "https://diabetesjournals.org/care/issue/47/Supplement_1",
+    "version": "2024.1",
+    "reviewed_by": "requires_manual_review",
+    "is_validated": false,
+    "rules": [
+      {"nutrient": "fiber_g", "operator": "MIN", "value": 25, "scope": "PER_DAY", "unit": "g"}
+    ]
+  },
+  {
+    "condition": "HIGH_BLOOD_PRESSURE",
+    "description": "Limit sodium intake following DASH guidelines",
+    "source": "AHA/ACC Hypertension Guidelines 2017",
+    "source_url": "https://www.ahajournals.org/doi/10.1161/HYP.0000000000000065",
+    "version": "2017.1",
+    "reviewed_by": "requires_manual_review",
+    "is_validated": false,
+    "rules": [
+      {"nutrient": "sodium_mg", "operator": "MAX", "value": 2300, "scope": "PER_DAY", "unit": "mg"}
+    ]
+  },
+  {
+    "condition": "HIGH_CHOLESTEROL",
+    "description": "Limit saturated fat, increase fiber",
+    "source": "AHA Dietary Guidelines for Cardiovascular Health 2021",
+    "source_url": "https://www.ahajournals.org/doi/10.1161/CIR.0000000000001031",
+    "version": "2021.1",
+    "reviewed_by": "requires_manual_review",
+    "is_validated": false,
+    "rules": [
+      {"nutrient": "fiber_g", "operator": "MIN", "value": 25, "scope": "PER_DAY", "unit": "g"}
+    ]
+  },
+  {
+    "condition": "GERD",
+    "description": "Avoid very high fat meals that may trigger reflux",
+    "source": "ACG Clinical Guideline for GERD 2022",
+    "source_url": "https://journals.lww.com/ajg/fulltext/2022/01000/acg_clinical_guideline_for_the_diagnosis_and.14.aspx",
+    "version": "2022.1",
+    "reviewed_by": "requires_manual_review",
+    "is_validated": false,
+    "rules": []
+  }
+]

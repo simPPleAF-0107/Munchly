@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "munchly-backend"
+version = "0.1.0"
+description = "Munchly backend"
+authors = ["Author <author@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "*"
+uvicorn = {extras = ["standard"], version = "*"}
+sqlalchemy = {extras = ["asyncio"], version = ">=2.0"}
+asyncpg = "*"
+alembic = "*"
+pydantic = ">=2.0"
+pydantic-settings = "*"
+python-jose = {extras = ["cryptography"], version = "*"}
+passlib = {extras = ["bcrypt"], version = "*"}
+httpx = "*"
+google-generativeai = "*"
+slowapi = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+httpx = "*"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

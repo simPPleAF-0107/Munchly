@@ -1,0 +1,34 @@
+{
+  "countries": [
+    {"code": "IN", "name": "India"}
+  ],
+  "states": [
+    {"country_code": "IN", "code": "WB", "name": "West Bengal"},
+    {"country_code": "IN", "code": "KA", "name": "Karnataka"},
+    {"country_code": "IN", "code": "TN", "name": "Tamil Nadu"},
+    {"country_code": "IN", "code": "DL", "name": "Delhi"},
+    {"country_code": "IN", "code": "MH", "name": "Maharashtra"},
+    {"country_code": "IN", "code": "KL", "name": "Kerala"},
+    {"country_code": "IN", "code": "PB", "name": "Punjab"},
+    {"country_code": "IN", "code": "GJ", "name": "Gujarat"},
+    {"country_code": "IN", "code": "RJ", "name": "Rajasthan"},
+    {"country_code": "IN", "code": "UP", "name": "Uttar Pradesh"},
+    {"country_code": "IN", "code": "AP", "name": "Andhra Pradesh"},
+    {"country_code": "IN", "code": "TG", "name": "Telangana"},
+    {"country_code": "IN", "code": "MP", "name": "Madhya Pradesh"}
+  ],
+  "cities": [
+    {"country_code": "IN", "state_code": "WB", "name": "Kolkata"},
+    {"country_code": "IN", "state_code": "KA", "name": "Bangalore"},
+    {"country_code": "IN", "state_code": "KA", "name": "Mysore"},
+    {"country_code": "IN", "state_code": "TN", "name": "Chennai"},
+    {"country_code": "IN", "state_code": "DL", "name": "New Delhi"},
+    {"country_code": "IN", "state_code": "MH", "name": "Mumbai"},
+    {"country_code": "IN", "state_code": "MH", "name": "Pune"},
+    {"country_code": "IN", "state_code": "KL", "name": "Kochi"},
+    {"country_code": "IN", "state_code": "PB", "name": "Chandigarh"},
+    {"country_code": "IN", "state_code": "GJ", "name": "Ahmedabad"},
+    {"country_code": "IN", "state_code": "AP", "name": "Hyderabad"},
+    {"country_code": "IN", "state_code": "TG", "name": "Hyderabad"}
+  ]
+}
