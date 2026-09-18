@@ -181,3 +181,66 @@ class PlanChangeLevel(str, enum.Enum):
     DAY_REOPTIMIZED = "DAY_REOPTIMIZED"
     FULL_REGENERATION = "FULL_REGENERATION"
 
+class ExerciseType(str, enum.Enum):
+    NONE = "NONE"
+    GYM_WEIGHTS = "GYM_WEIGHTS"
+    CARDIO = "CARDIO"
+    YOGA = "YOGA"
+    SPORTS = "SPORTS"
+    WALKING = "WALKING"
+    SWIMMING = "SWIMMING"
+    HOME_WORKOUT = "HOME_WORKOUT"
+    MIXED = "MIXED"
+    OTHER = "OTHER"
+
+class WorkoutIntensity(str, enum.Enum):
+    NONE = "NONE"
+    LOW = "LOW"
+    MODERATE = "MODERATE"
+    HIGH = "HIGH"
+    VERY_HIGH = "VERY_HIGH"
+
+class FitnessGoal(str, enum.Enum):
+    NONE = "NONE"
+    BUILD_STRENGTH = "BUILD_STRENGTH"
+    BUILD_MUSCLE = "BUILD_MUSCLE"
+    LOSE_FAT = "LOSE_FAT"
+    IMPROVE_ENDURANCE = "IMPROVE_ENDURANCE"
+    GENERAL_FITNESS = "GENERAL_FITNESS"
+    FLEXIBILITY = "FLEXIBILITY"
+
+class BulkCutStatus(str, enum.Enum):
+    NONE = "NONE"
+    BULKING = "BULKING"
+    CUTTING = "CUTTING"
+    MAINTENANCE = "MAINTENANCE"
+    LEAN_BULK = "LEAN_BULK"
+    RECOMP = "RECOMP"
+
+class CookingEffort(str, enum.Enum):
+    MINIMAL = "MINIMAL"    # Microwave, toast, assemble
+    EASY = "EASY"          # 1-pan, under 20 min
+    MODERATE = "MODERATE"  # Standard cooking
+    ELABORATE = "ELABORATE" # Multi-step, specialty
+
+class FoodWastePreference(str, enum.Enum):
+    NOT_IMPORTANT = "NOT_IMPORTANT"
+    SOMEWHAT_IMPORTANT = "SOMEWHAT_IMPORTANT"
+    VERY_IMPORTANT = "VERY_IMPORTANT"
+
+class HungerLevel(str, enum.Enum):
+    LOW = "LOW"
+    NORMAL = "NORMAL"
+    HIGH = "HIGH"
+    VERY_HIGH = "VERY_HIGH"
+
+class PreferenceStrictness(str, enum.Enum):
+    FLEXIBLE = "FLEXIBLE"       # Happy to try new things
+    MODERATE = "MODERATE"       # Likes familiar, open to occasional variety
+    STRICT = "STRICT"           # Stick to what I know
+
+class WorkoutTiming(str, enum.Enum):
+    MORNING = "MORNING"
+    AFTERNOON = "AFTERNOON"
+    EVENING = "EVENING"
+    NO_FIXED_TIME = "NO_FIXED_TIME"

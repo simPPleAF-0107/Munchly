@@ -280,3 +280,90 @@ class NutrientProfileService:
             per_meal={"BREAKFAST": 0.25, "LUNCH": 0.40, "DINNER": 0.35},
             special_considerations=special_considerations,
         )
+
+    @classmethod
+    def build_profile_with_lifestyle(
+        cls,
+        weight_kg: float,
+        height_cm: float,
+        age: int,
+        gender: str,
+        activity_level: str,
+        health_goal: str,
+        medical_conditions: Optional[List[str]] = None,
+        workout_intensity: Optional[str] = None,
+        fitness_goal: Optional[str] = None,
+        bulk_cut_status: Optional[str] = None,
+        workout_timing: Optional[str] = None,
+        exercise_frequency: Optional[int] = None,
+    ) -> 'NutrientProfile':
+        """Build nutrient profile with fitness/lifestyle adjustments layered on.
+        
+        This calls build_profile() first, then applies fitness adjustments.
+        Fitness adjustments STACK with health-goal adjustments.
+        Safety floors still enforced.
+        """
+        from app.services.lifestyle_service import LifestyleService
+        
+        # 1. Build base profile from Phase 1
+        base = cls.build_profile(
+            weight_kg=weight_kg,
+            height_cm=height_cm,
+            age=age,
+            gender=gender,
+            activity_level=activity_level,
+            health_goal=health_goal,
+            medical_conditions=medical_conditions,
+        )
+        
+        # 2. Calculate fitness adjustments
+        fitness_adj = LifestyleService.calculate_fitness_adjustments(
+            weight_kg=weight_kg,
+            workout_intensity=workout_intensity,
+            fitness_goal=fitness_goal,
+            bulk_cut_status=bulk_cut_status,
+            workout_timing=workout_timing,
+            exercise_frequency=exercise_frequency,
+        )
+        
+        # 3. Apply calorie adjustment (stacking, with safety floor)
+        gender_enum = Gender(gender.upper()) if isinstance(gender, str) else gender
+        floor = SAFETY_FLOORS.get(gender_enum, 1350)
+        new_cal_target = max(base.calorie_target + fitness_adj.calorie_adjustment, floor)
+        new_cal_range = (int(new_cal_target * 0.9), int(new_cal_target * 1.1))
+        
+        # 4. Apply protein boost
+        new_protein_target = base.protein_g.target + fitness_adj.protein_boost_g
+        
+        # 5. Apply meal splits from workout timing
+        new_per_meal = fitness_adj.meal_splits
+        
+        # 6. Add fitness considerations
+        for reason in fitness_adj.reasons:
+            base.special_considerations.append(SpecialConsideration(
+                type="LIFESTYLE",
+                condition="FITNESS",
+                message=reason,
+            ))
+        
+        # Return updated profile
+        return NutrientProfile(
+            bmr=base.bmr,
+            tdee=base.tdee,
+            calorie_target=new_cal_target,
+            calorie_range=new_cal_range,
+            calorie_adjustment=base.calorie_adjustment + fitness_adj.calorie_adjustment,
+            protein_g=NutrientTarget(
+                target=new_protein_target,
+                min_value=int(new_protein_target * 0.8),
+                max_value=int(new_protein_target * 1.2),
+                priority=base.protein_g.priority,
+            ),
+            carbs_g=base.carbs_g,
+            fat_g=base.fat_g,
+            fiber_g=base.fiber_g,
+            micros=base.micros,
+            per_meal=new_per_meal,
+            special_considerations=base.special_considerations,
+        )
+

@@ -30,3 +30,4 @@ class User(UUIDMixin, Base):
     available_ingredients: Mapped[List["UserAvailableIngredient"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     meal_plans: Mapped[List["MealPlan"]] = relationship(back_populates="user", cascade="all, delete-orphan")
     meal_history: Mapped[List["MealHistory"]] = relationship(back_populates="user", cascade="all, delete-orphan")
+    lifestyle: Mapped["UserLifestyle"] = relationship(back_populates="user", uselist=False, cascade="all, delete-orphan")
