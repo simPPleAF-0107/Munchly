@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1.endpoints import auth, onboarding, meal_plans, grocery, ai, daily, feedback
+from app.api.v1.endpoints import auth, onboarding, meal_plans, grocery, ai, daily, feedback, behavioral
 
 api_router = APIRouter()
 api_router.include_router(auth.router)
@@ -9,3 +9,4 @@ api_router.include_router(grocery.router)
 api_router.include_router(ai.router)
 api_router.include_router(daily.router)
 api_router.include_router(feedback.router)
+api_router.include_router(behavioral.router)

@@ -18,3 +18,4 @@ from app.models.event import UserEvent
 from app.models.lifestyle import UserLifestyle
 from app.models.daily_context import DailyContext
 from app.models.feedback import UserFeedback, UserPreferenceOverride
+from app.models.behavioral_profile import UserBehavioralProfile, UserBehavioralInsight

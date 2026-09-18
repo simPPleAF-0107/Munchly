@@ -313,3 +313,20 @@ class ConflictType(str, enum.Enum):
     TIME_VS_NUTRITION = "TIME_VS_NUTRITION"
     PREFERENCES_VS_BUDGET = "PREFERENCES_VS_BUDGET"
     MULTIPLE_RESTRICTIONS = "MULTIPLE_RESTRICTIONS"
+
+class InsightStatus(str, enum.Enum):
+    """Status of a behavioral insight shown to the user."""
+    PENDING = "PENDING"       # Generated, not yet shown
+    SHOWN = "SHOWN"           # Displayed to user
+    ACCEPTED = "ACCEPTED"     # User accepted the insight
+    DISMISSED = "DISMISSED"   # User dismissed the insight
+
+class BehavioralDimension(str, enum.Enum):
+    """What dimension of behavior was observed."""
+    CUISINE_PREFERENCE = "CUISINE_PREFERENCE"
+    MEAL_TYPE_PATTERN = "MEAL_TYPE_PATTERN"
+    INGREDIENT_PREFERENCE = "INGREDIENT_PREFERENCE"
+    INGREDIENT_AVOIDANCE = "INGREDIENT_AVOIDANCE"
+    PORTION_PREFERENCE = "PORTION_PREFERENCE"
+    COMPLEXITY_PREFERENCE = "COMPLEXITY_PREFERENCE"
+    TIME_OF_DAY_PATTERN = "TIME_OF_DAY_PATTERN"
