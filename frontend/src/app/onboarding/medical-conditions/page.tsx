@@ -15,11 +15,11 @@ export default function MedicalConditionsPage() {
   const [selected, setSelected] = useState<string[]>(medicalConditions);
 
   const toggle = (condition: string) => {
-    if (condition === "None") {
-      setSelected(["None"]);
+    if (condition === "NONE") {
+      setSelected(["NONE"]);
       return;
     }
-    const filtered = selected.filter(c => c !== "None");
+    const filtered = selected.filter(c => c !== "NONE");
     if (filtered.includes(condition)) {
       setSelected(filtered.filter(c => c !== condition));
     } else {
@@ -28,7 +28,7 @@ export default function MedicalConditionsPage() {
   };
 
   const onSubmit = () => {
-    setMedicalConditions(selected.filter(c => c !== "None"));
+    setMedicalConditions(selected.filter(c => c !== "NONE"));
     router.push("/onboarding/allergies");
   };
 
@@ -48,13 +48,13 @@ export default function MedicalConditionsPage() {
 
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
-          <Checkbox id="cond-none" checked={selected.includes("None")} onCheckedChange={() => toggle("None")} />
+          <Checkbox id="cond-none" checked={selected.includes("NONE")} onCheckedChange={() => toggle("NONE")} />
           <Label htmlFor="cond-none" className="flex-1 cursor-pointer font-medium">None</Label>
         </div>
-        {MEDICAL_CONDITIONS.map((c) => (
-          <div key={c} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
-            <Checkbox id={`cond-${c}`} checked={selected.includes(c)} onCheckedChange={() => toggle(c)} />
-            <Label htmlFor={`cond-${c}`} className="flex-1 cursor-pointer font-medium">{c}</Label>
+        {MEDICAL_CONDITIONS.filter(c => c.value !== "NONE").map((c) => (
+          <div key={c.value} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
+            <Checkbox id={`cond-${c.value}`} checked={selected.includes(c.value)} onCheckedChange={() => toggle(c.value)} />
+            <Label htmlFor={`cond-${c.value}`} className="flex-1 cursor-pointer font-medium">{c.label}</Label>
           </div>
         ))}
       </div>

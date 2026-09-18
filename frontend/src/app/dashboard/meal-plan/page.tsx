@@ -52,7 +52,7 @@ export default function MealPlanPage() {
         );
         return { ...prev, meals: newMeals };
       });
-      await apiClient.post(\`/meal-plans/meals/\${mealId}/select\`, { recipe_id: recipeId });
+      await apiClient.post(`/meal-plans/meals/${mealId}/select`, { recipe_id: recipeId });
     } catch (err) {
       console.error(err);
       fetchPlan();
@@ -63,7 +63,7 @@ export default function MealPlanPage() {
     if (!replaceMealId) return;
     try {
       setIsReplacing(true);
-      const updatedMeal = await apiClient.post<MealPlanMealResponse>(\`/meal-plans/meals/\${replaceMealId}/replace\`, { reason });
+      const updatedMeal = await apiClient.post<MealPlanMealResponse>(`/meal-plans/meals/${replaceMealId}/replace`, { reason });
       setPlan((prev) => {
         if (!prev) return prev;
         const newMeals = prev.meals.map(m => m.id === replaceMealId ? updatedMeal : m);

@@ -12,13 +12,13 @@ interface GroceryListProps {
 
 export function GroceryList({ list }: GroceryListProps) {
   const handleShare = () => {
-    let text = \`Grocery List (Budget: \${list.cost_currency} \${list.weekly_grocery_limit})\\n\\n\`;
+    let text = `Grocery List (Budget: ${list.cost_currency} ${list.weekly_grocery_limit})\n\n`;
     Object.entries(list.items_by_category).forEach(([category, items]) => {
-      text += \`== \${category} ==\\n\`;
+      text += `== ${category} ==\n`;
       items.forEach(item => {
-        text += \`- \${item.food_name}: \${item.purchase_quantity} \${item.purchase_unit}\\n\`;
+        text += `- ${item.food_name}: ${item.purchase_quantity_g} ${item.purchase_unit}\n`;
       });
-      text += \`\\n\`;
+      text += `\n`;
     });
     navigator.clipboard.writeText(text);
     alert("Copied to clipboard!");

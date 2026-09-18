@@ -1,34 +1,40 @@
+import type { RecipeIngredient } from "./index";
+
 export interface RecipeResponse {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  instructions: string;
-  prep_time_mins: number;
-  cook_time_mins: number;
-  servings: number;
-  cuisine_type: string;
-  difficulty_level: string;
-  calories_per_serving: number;
+  calories: number;
   protein_g: number;
   carbs_g: number;
   fat_g: number;
   fiber_g: number;
-  image_url?: string;
+  sodium_mg: number;
   estimated_cost: number;
-  diet_type?: string;
+  cost_currency: string;
+  prep_time_min: number;
+  difficulty: string;
+  servings: number;
+  instructions: string;
+  image_url: string | null;
+  diet_compatibility: string[];
+  meal_types: string[];
+  cuisines: string[];
+  ingredients: RecipeIngredient[];
+  allergens: string[];
 }
 
 export interface MealOptionResponse {
   recipe_id: string;
   recipe: RecipeResponse;
-  option_type: 'BEST' | 'BUDGET' | 'VARIETY' | string;
+  option_type: string;
   score: number;
 }
 
 export interface MealPlanMealResponse {
   id: string;
-  day_of_week: number; // 1-7 (1 = Monday)
-  meal_type: 'BREAKFAST' | 'LUNCH' | 'DINNER' | string;
+  day_of_week: number;
+  meal_type: string;
   selected_recipe_id: string | null;
   options: MealOptionResponse[];
 }
@@ -45,14 +51,13 @@ export interface MealPlanResponse {
 }
 
 export interface ShoppingListItemResponse {
-  id: string;
+  food_id: string;
   food_name: string;
-  needed_quantity: number;
-  needed_unit: string;
-  purchase_quantity: number;
+  category: string;
+  consumed_quantity_g: number;
+  purchase_quantity_g: number;
   purchase_unit: string;
-  estimated_cost: number;
-  is_purchased: boolean;
+  estimated_item_cost: number;
 }
 
 export interface ShoppingListResponse {
@@ -70,13 +75,8 @@ export interface ShoppingListResponse {
 export interface UserResponse {
   id: string;
   email: string;
-  name?: string;
-  diet_type?: string;
-  location?: string;
-  cuisines?: string[];
-  weekly_budget?: number;
-  currency?: string;
-  subscription_tier?: string;
-  daily_calories_target?: number;
-  daily_protein_target?: number;
+  auth_provider: string;
+  subscription_tier: string;
+  is_active: boolean;
+  created_at: string;
 }

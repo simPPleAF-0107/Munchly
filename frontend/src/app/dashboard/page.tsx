@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { format } from "date-fns";
 import { apiClient } from "@/lib/api-client";
 import { MealPlanResponse, UserResponse } from "@/types/api";
+import { UserProfile } from "@/types";
 import { formatCurrency } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -15,17 +16,20 @@ import { DailyMeals } from "@/features/dashboard/components/daily-meals";
 export default function DashboardHome() {
   const router = useRouter();
   const [user, setUser] = useState<UserResponse | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [plan, setPlan] = useState<MealPlanResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const [userData, planData] = await Promise.all([
+        const [userData, profileData, planData] = await Promise.all([
           apiClient.get<UserResponse>("/auth/me").catch(() => null),
+          apiClient.get<UserProfile>("/users/profile").catch(() => null),
           apiClient.get<MealPlanResponse>("/meal-plans/active").catch(() => null),
         ]);
         if (userData) setUser(userData);
+        if (profileData) setProfile(profileData);
         if (planData) setPlan(planData);
       } catch (err) {
         console.error("Failed to load dashboard data", err);
@@ -41,29 +45,27 @@ export default function DashboardHome() {
   }
 
   const todayStr = format(new Date(), "EEEE, MMMM d");
-  const todayDayOfWeek = new Date().getDay() || 7; // 1-7 where 1 is Monday
+  const todayDayOfWeek = new Date().getDay() || 7;
 
-  // Filter today's meals
   const todaysMeals = plan?.meals.filter(m => m.day_of_week === todayDayOfWeek) || [];
 
-  // Calculate today's nutrition
   let todayCals = 0;
   let todayProtein = 0;
   
   todaysMeals.forEach(meal => {
     const selected = meal.options.find(o => o.recipe_id === meal.selected_recipe_id) || meal.options[0];
     if (selected) {
-      todayCals += selected.recipe.calories_per_serving;
+      todayCals += selected.recipe.calories;
       todayProtein += selected.recipe.protein_g;
     }
   });
 
-  const currency = user?.currency || plan?.cost_currency || "INR";
+  const currency = plan?.cost_currency || profile?.weekly_grocery_limit_currency || "INR";
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
       <header>
-        <Greeting name={user?.name || "User"} />
+        <Greeting name={profile?.name || "User"} />
         <p className="text-gray-500">{todayStr}</p>
       </header>
 
@@ -81,8 +83,8 @@ export default function DashboardHome() {
         <>
           <div className="grid gap-4 md:grid-cols-2">
             <NutritionSummary 
-              calories={{ current: todayCals, target: user?.daily_calories_target || 2000 }} 
-              protein={{ current: todayProtein, target: user?.daily_protein_target || 150 }} 
+              calories={{ current: todayCals, target: 2000 }} 
+              protein={{ current: todayProtein, target: 150 }} 
             />
             
             <Card>
@@ -91,7 +93,7 @@ export default function DashboardHome() {
                 <div className="text-3xl font-bold text-gray-900">
                   {formatCurrency(plan.total_consumed_cost || 0, currency)}
                   <span className="text-base font-normal text-gray-500 ml-2">
-                    / {formatCurrency(user?.weekly_budget || 0, currency)} budget
+                    / {formatCurrency(profile?.weekly_grocery_limit || 0, currency)} budget
                   </span>
                 </div>
               </CardContent>
@@ -108,3 +110,4 @@ export default function DashboardHome() {
     </div>
   );
 }
+

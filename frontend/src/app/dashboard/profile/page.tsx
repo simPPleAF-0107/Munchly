@@ -3,23 +3,30 @@
 import { useEffect, useState } from "react";
 import { apiClient } from "@/lib/api-client";
 import { UserResponse } from "@/types/api";
+import { UserProfile } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { User, Settings, CreditCard, LogOut } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { formatCurrency } from "@/lib/utils";
+import { getLabel, DIET_TYPES, CUISINES } from "@/lib/constants";
 
 export default function ProfilePage() {
   const router = useRouter();
   const [user, setUser] = useState<UserResponse | null>(null);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     async function loadData() {
       try {
-        const userData = await apiClient.get<UserResponse>("/auth/me");
+        const [userData, profileData] = await Promise.all([
+          apiClient.get<UserResponse>("/auth/me"),
+          apiClient.get<UserProfile>("/users/profile").catch(() => null),
+        ]);
         setUser(userData);
+        if (profileData) setProfile(profileData);
       } catch (err) {
         console.error(err);
       } finally {
@@ -51,7 +58,7 @@ export default function ProfilePage() {
               <User className="w-8 h-8" />
             </div>
             <div className="flex-1">
-              <h2 className="text-xl font-bold">{user.name || "User"}</h2>
+              <h2 className="text-xl font-bold">{profile?.name || "User"}</h2>
               <p className="text-gray-500">{user.email}</p>
             </div>
             <Badge variant="secondary" className="bg-gradient-to-r from-orange-400 to-orange-600 text-white border-0">
@@ -72,15 +79,11 @@ export default function ProfilePage() {
           <CardContent className="space-y-4">
             <div>
               <div className="text-sm text-gray-500">Diet Type</div>
-              <div className="font-medium capitalize">{user.diet_type || "No restriction"}</div>
+              <div className="font-medium capitalize">{profile?.health_goal ? getLabel(DIET_TYPES, profile.health_goal) : "Not set"}</div>
             </div>
             <div>
-              <div className="text-sm text-gray-500">Cuisines</div>
-              <div className="font-medium flex flex-wrap gap-1 mt-1">
-                {(user.cuisines?.length ? user.cuisines : ["Any"]).map(c => (
-                  <Badge key={c} variant="outline" className="capitalize">{c}</Badge>
-                ))}
-              </div>
+              <div className="text-sm text-gray-500">Health Goal</div>
+              <div className="font-medium">{profile?.health_goal || "Not set"}</div>
             </div>
             <Button variant="outline" className="w-full mt-2" onClick={() => router.push("/onboarding")}>
               Update Preferences
@@ -98,12 +101,12 @@ export default function ProfilePage() {
           <CardContent className="space-y-4">
             <div>
               <div className="text-sm text-gray-500">Weekly Budget</div>
-              <div className="font-medium">{formatCurrency(user.weekly_budget || 0, user.currency || "INR")}</div>
+              <div className="font-medium">{formatCurrency(profile?.weekly_grocery_limit || 0, profile?.weekly_grocery_limit_currency || "INR")}</div>
             </div>
             <div>
-              <div className="text-sm text-gray-500">Daily Targets</div>
+              <div className="text-sm text-gray-500">Activity Level</div>
               <div className="font-medium">
-                {user.daily_calories_target || 2000} kcal • {user.daily_protein_target || 150}g protein
+                {profile?.activity_level || "Not set"}
               </div>
             </div>
             <Button variant="outline" className="w-full mt-2">
@@ -122,3 +125,4 @@ export default function ProfilePage() {
     </div>
   );
 }
+

@@ -44,9 +44,9 @@ export default function CookingPage() {
             className="grid gap-3 sm:grid-cols-2"
           >
             {COOKING_ABILITIES.map((c) => (
-              <div key={c} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-                <RadioGroupItem value={c} id={`cook-${c}`} />
-                <Label htmlFor={`cook-${c}`} className="flex-1 cursor-pointer font-medium">{c}</Label>
+              <div key={c.value} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                <RadioGroupItem value={c.value} id={`cook-${c.value}`} />
+                <Label htmlFor={`cook-${c.value}`} className="flex-1 cursor-pointer font-medium">{c.label}</Label>
               </div>
             ))}
           </RadioGroup>

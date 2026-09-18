@@ -39,7 +39,7 @@ export function MealCard({ recipe, optionType, currency, isSelected, onSelect }:
       
       {recipe.image_url && (
         <div className="h-32 w-full bg-gray-100 overflow-hidden shrink-0">
-          <img src={recipe.image_url} alt={recipe.title} className="w-full h-full object-cover" />
+          <img src={recipe.image_url} alt={recipe.name} className="w-full h-full object-cover" />
         </div>
       )}
       
@@ -50,18 +50,18 @@ export function MealCard({ recipe, optionType, currency, isSelected, onSelect }:
           </Badge>
         </div>
         
-        <h4 className="font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">{recipe.title}</h4>
+        <h4 className="font-semibold text-gray-900 leading-tight mb-2 line-clamp-2">{recipe.name}</h4>
         
         <div className="mt-auto space-y-3">
           <div className="flex items-center gap-2 text-xs text-gray-500">
-            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {recipe.prep_time_mins + recipe.cook_time_mins}m</span>
+            <span className="flex items-center gap-1"><Clock className="w-3 h-3" /> {recipe.prep_time_min}m</span>
             <span>•</span>
-            <span className="capitalize">{recipe.cuisine_type}</span>
+            <span className="capitalize">{recipe.cuisines?.[0] || ""}</span>
           </div>
           
           <div className="flex items-center justify-between text-sm pt-3 border-t">
             <div className="text-gray-500">
-              {recipe.calories_per_serving} kcal <span className="mx-1 text-gray-300">|</span> {recipe.protein_g}g pro
+              {recipe.calories} kcal <span className="mx-1 text-gray-300">|</span> {recipe.protein_g}g pro
             </div>
             <div className="font-medium text-gray-900">
               {formatCurrency(recipe.estimated_cost || 0, currency)}
@@ -72,3 +72,4 @@ export function MealCard({ recipe, optionType, currency, isSelected, onSelect }:
     </Card>
   );
 }
+

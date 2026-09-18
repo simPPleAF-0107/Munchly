@@ -41,10 +41,10 @@ export default function HealthGoalPage() {
           className="grid gap-4 md:grid-cols-2"
         >
           {HEALTH_GOALS.map((g) => (
-            <div key={g} className="flex flex-col items-center justify-center space-y-2 border-2 rounded-xl p-6 cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 relative text-center">
-              <RadioGroupItem value={g} id={`goal-${g}`} className="absolute top-4 right-4" />
-              <Label htmlFor={`goal-${g}`} className="w-full cursor-pointer text-lg font-semibold h-full flex items-center justify-center">
-                {g}
+            <div key={g.value} className="flex flex-col items-center justify-center space-y-2 border-2 rounded-xl p-6 cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 relative text-center">
+              <RadioGroupItem value={g.value} id={`goal-${g.value}`} className="absolute top-4 right-4" />
+              <Label htmlFor={`goal-${g.value}`} className="w-full cursor-pointer text-lg font-semibold h-full flex items-center justify-center">
+                {g.label}
               </Label>
             </div>
           ))}

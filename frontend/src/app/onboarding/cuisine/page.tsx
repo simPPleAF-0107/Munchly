@@ -13,7 +13,7 @@ export default function CuisinePage() {
   // Maps cuisine name -> tier (1: Love, 2: Like, 3: Neutral)
   const [prefs, setPrefs] = useState<Record<string, number>>(() => {
     const map: Record<string, number> = {};
-    CUISINES.forEach(c => { map[c.name] = 3; });
+    CUISINES.forEach(c => { map[c.value] = 3; });
     cuisinePreferences.forEach(cp => {
       if (cp.preference_strength > 0.8) map[cp.cuisine] = 1;
       else if (cp.preference_strength > 0.5) map[cp.cuisine] = 2;
@@ -42,7 +42,7 @@ export default function CuisinePage() {
   };
 
   const renderTier = (tier: number, title: string, icon: string, bgClass: string) => {
-    const items = CUISINES.filter(c => prefs[c.name] === tier);
+    const items = CUISINES.filter(c => prefs[c.value] === tier);
     return (
       <div className={`p-4 rounded-xl border ${bgClass}`}>
         <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
@@ -50,10 +50,10 @@ export default function CuisinePage() {
         </h3>
         <div className="flex flex-wrap gap-2">
           {items.map(c => (
-            <div key={c.name} className="bg-background px-3 py-2 rounded-full border shadow-sm text-sm flex items-center gap-2 cursor-pointer"
-                 onClick={() => toggleTier(c.name, tier === 1 ? 3 : tier - 1)}>
+            <div key={c.value} className="bg-background px-3 py-2 rounded-full border shadow-sm text-sm flex items-center gap-2 cursor-pointer"
+                 onClick={() => toggleTier(c.value, tier === 1 ? 3 : tier - 1)}>
               <span>{c.emoji}</span>
-              <span className="font-medium">{c.name}</span>
+              <span className="font-medium">{c.label}</span>
             </div>
           ))}
           {items.length === 0 && <span className="text-sm text-muted-foreground italic p-2">Empty</span>}

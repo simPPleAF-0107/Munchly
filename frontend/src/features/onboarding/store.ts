@@ -43,8 +43,8 @@ const initialState = {
   medicalConditions: [],
   foodPreferences: [],
   cuisinePreferences: [],
-  cooking: { cooking_ability: "Beginner", max_prep_time_min: 30 },
-  budget: { weekly_grocery_limit: null, weekly_grocery_limit_currency: "INR", budget_type: "Economy" },
+  cooking: { cooking_ability: "BASIC", max_prep_time_min: 30 },
+  budget: { weekly_grocery_limit: null, weekly_grocery_limit_currency: "INR", budget_type: "GROCERIES_ONLY" },
   pantryItems: [],
 };
 

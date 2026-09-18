@@ -31,7 +31,7 @@ export function DailyMeals({ meals, currency, onReplaceClick }: DailyMealsProps)
                   <div className="h-32 bg-gray-200 w-full overflow-hidden">
                     <img 
                       src={selectedOption.recipe.image_url} 
-                      alt={selectedOption.recipe.title} 
+                      alt={selectedOption.recipe.name} 
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -39,11 +39,11 @@ export function DailyMeals({ meals, currency, onReplaceClick }: DailyMealsProps)
                 <CardContent className="p-4 flex-1 flex flex-col">
                   <div className="text-xs font-semibold text-orange-600 mb-1">{meal.meal_type}</div>
                   <h3 className="font-medium text-gray-900 line-clamp-2 mb-2 flex-1">
-                    {selectedOption.recipe.title}
+                    {selectedOption.recipe.name}
                   </h3>
                   
                   <div className="text-sm text-gray-500 flex items-center justify-between mt-auto pt-2 border-t">
-                    <span>{selectedOption.recipe.calories_per_serving} kcal</span>
+                    <span>{selectedOption.recipe.calories} kcal</span>
                     <span>{selectedOption.recipe.protein_g}g pro</span>
                     <span className="font-medium text-gray-900">
                       {formatCurrency(selectedOption.recipe.estimated_cost || 0, currency)}

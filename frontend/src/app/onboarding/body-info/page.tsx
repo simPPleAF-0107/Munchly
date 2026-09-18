@@ -60,10 +60,10 @@ export default function BodyInfoPage() {
             className="flex flex-col gap-3"
           >
             {ACTIVITY_LEVELS.map((level) => (
-              <div key={level} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-                <RadioGroupItem value={level} id={`activity-${level}`} />
-                <Label htmlFor={`activity-${level}`} className="flex-1 cursor-pointer text-base font-medium">
-                  {level}
+              <div key={level.value} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                <RadioGroupItem value={level.value} id={`activity-${level.value}`} />
+                <Label htmlFor={`activity-${level.value}`} className="flex-1 cursor-pointer text-base font-medium">
+                  {level.label}
                 </Label>
               </div>
             ))}

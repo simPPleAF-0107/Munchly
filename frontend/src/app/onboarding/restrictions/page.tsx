@@ -14,11 +14,11 @@ export default function RestrictionsPage() {
   const [selected, setSelected] = useState<string[]>(restrictions);
 
   const toggle = (res: string) => {
-    if (res === "None") {
-      setSelected(["None"]);
+    if (res === "NONE") {
+      setSelected(["NONE"]);
       return;
     }
-    const filtered = selected.filter(a => a !== "None");
+    const filtered = selected.filter(a => a !== "NONE");
     if (filtered.includes(res)) {
       setSelected(filtered.filter(a => a !== res));
     } else {
@@ -27,7 +27,7 @@ export default function RestrictionsPage() {
   };
 
   const onSubmit = () => {
-    setRestrictions(selected.filter(a => a !== "None"));
+    setRestrictions(selected.filter(a => a !== "NONE"));
     router.push("/onboarding/food-preferences");
   };
 
@@ -40,13 +40,13 @@ export default function RestrictionsPage() {
 
       <div className="grid gap-3 sm:grid-cols-2">
         <div className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
-          <Checkbox id="res-none" checked={selected.includes("None")} onCheckedChange={() => toggle("None")} />
+          <Checkbox id="res-none" checked={selected.includes("NONE")} onCheckedChange={() => toggle("NONE")} />
           <Label htmlFor="res-none" className="flex-1 cursor-pointer font-medium">None</Label>
         </div>
         {DIETARY_RESTRICTIONS.map((res) => (
-          <div key={res} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
-            <Checkbox id={`res-${res}`} checked={selected.includes(res)} onCheckedChange={() => toggle(res)} />
-            <Label htmlFor={`res-${res}`} className="flex-1 cursor-pointer font-medium">{res}</Label>
+          <div key={res.value} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
+            <Checkbox id={`res-${res.value}`} checked={selected.includes(res.value)} onCheckedChange={() => toggle(res.value)} />
+            <Label htmlFor={`res-${res.value}`} className="flex-1 cursor-pointer font-medium">{res.label}</Label>
           </div>
         ))}
       </div>

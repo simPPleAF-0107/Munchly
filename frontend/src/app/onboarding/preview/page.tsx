@@ -28,10 +28,20 @@ export default function PreviewPage() {
         // placeholder for actual API call, if api doesn't exist, use dummy data
         const res = await apiClient.get<NutritionTargets>(`/onboarding/preview?${query}`).catch(() => ({
           daily_calories: 2000,
+          daily_calories_range: [1800, 2200] as [number, number],
           protein_g: 150,
+          protein_range: [120, 180] as [number, number],
           carbs_g: 200,
           fat_g: 65,
-        }));
+          fat_min_g: 45,
+          fiber_g: 30,
+          fiber_min_g: 25,
+          bmi: 0,
+          bmi_category: "",
+          bmr: 0,
+          tdee: 0,
+          per_meal: {},
+        } satisfies NutritionTargets));
         setTargets(res);
       } catch (err) {
         console.error(err);

@@ -49,7 +49,15 @@ export default function FoodPreferencesPage() {
   }, [query]);
 
   const setPref = (foodId: string, pref: string) => {
-    setPrefs(prev => ({ ...prev, [foodId]: pref }));
+    if (pref === "NEUTRAL") {
+      setPrefs(prev => {
+        const next = { ...prev };
+        delete next[foodId];
+        return next;
+      });
+    } else {
+      setPrefs(prev => ({ ...prev, [foodId]: pref }));
+    }
   };
 
   const onSubmit = () => {
@@ -85,20 +93,26 @@ export default function FoodPreferencesPage() {
               </div>
               <div className="flex bg-muted/50 rounded-lg p-1">
                 <button 
-                  onClick={() => setPref(food.id, "like")}
-                  className={`px-4 py-2 rounded-md text-sm transition-colors ${prefs[food.id] === "like" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 font-medium shadow-sm" : "hover:bg-muted"}`}
+                  onClick={() => setPref(food.id, "LIKE")}
+                  className={`px-3 py-1.5 rounded-md text-sm transition-colors ${prefs[food.id] === "LIKE" ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 font-medium shadow-sm" : "hover:bg-muted"}`}
                 >
-                  ❤️ Love
+                  ❤️ Like
                 </button>
                 <button 
-                  onClick={() => setPref(food.id, "neutral")}
-                  className={`px-4 py-2 rounded-md text-sm transition-colors ${prefs[food.id] === "neutral" ? "bg-background font-medium shadow-sm" : "hover:bg-muted"}`}
+                  onClick={() => setPref(food.id, "NEUTRAL")}
+                  className={`px-3 py-1.5 rounded-md text-sm transition-colors ${!prefs[food.id] ? "bg-background font-medium shadow-sm" : "hover:bg-muted"}`}
                 >
                   😐 Neutral
                 </button>
                 <button 
-                  onClick={() => setPref(food.id, "dislike")}
-                  className={`px-4 py-2 rounded-md text-sm transition-colors ${prefs[food.id] === "dislike" ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 font-medium shadow-sm" : "hover:bg-muted"}`}
+                  onClick={() => setPref(food.id, "DISLIKE")}
+                  className={`px-3 py-1.5 rounded-md text-sm transition-colors ${prefs[food.id] === "DISLIKE" ? "bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-400 font-medium shadow-sm" : "hover:bg-muted"}`}
+                >
+                  👎 Dislike
+                </button>
+                <button 
+                  onClick={() => setPref(food.id, "NEVER")}
+                  className={`px-3 py-1.5 rounded-md text-sm transition-colors ${prefs[food.id] === "NEVER" ? "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 font-medium shadow-sm" : "hover:bg-muted"}`}
                 >
                   🚫 Never
                 </button>

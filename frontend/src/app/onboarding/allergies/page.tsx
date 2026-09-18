@@ -19,12 +19,12 @@ export default function AllergiesPage() {
   const [newCustom, setNewCustom] = useState("");
 
   const toggle = (allergen: string) => {
-    if (allergen === "None") {
-      setSelected(["None"]);
+    if (allergen === "NONE") {
+      setSelected(["NONE"]);
       setCustoms([]);
       return;
     }
-    const filtered = selected.filter(a => a !== "None");
+    const filtered = selected.filter(a => a !== "NONE");
     if (filtered.includes(allergen)) {
       setSelected(filtered.filter(a => a !== allergen));
     } else {
@@ -35,7 +35,7 @@ export default function AllergiesPage() {
   const addCustom = () => {
     if (newCustom.trim() && !customs.includes(newCustom.trim())) {
       setCustoms([...customs, newCustom.trim()]);
-      setSelected(selected.filter(a => a !== "None"));
+      setSelected(selected.filter(a => a !== "NONE"));
       setNewCustom("");
     }
   };
@@ -46,7 +46,7 @@ export default function AllergiesPage() {
 
   const onSubmit = () => {
     const combined = [
-      ...selected.filter(a => a !== "None").map(a => ({ allergen: a })),
+      ...selected.filter(a => a !== "NONE").map(a => ({ allergen: a })),
       ...customs.map(c => ({ allergen: c, custom_allergen: "true" }))
     ];
     setAllergies(combined);
@@ -62,13 +62,13 @@ export default function AllergiesPage() {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
-          <Checkbox id="alg-none" checked={selected.includes("None")} onCheckedChange={() => toggle("None")} />
+          <Checkbox id="alg-none" checked={selected.includes("NONE")} onCheckedChange={() => toggle("NONE")} />
           <Label htmlFor="alg-none" className="flex-1 cursor-pointer font-medium">None</Label>
         </div>
-        {ALLERGENS.map((a) => (
-          <div key={a} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
-            <Checkbox id={`alg-${a}`} checked={selected.includes(a)} onCheckedChange={() => toggle(a)} />
-            <Label htmlFor={`alg-${a}`} className="flex-1 cursor-pointer font-medium">{a}</Label>
+        {ALLERGENS.filter(a => a.value !== "CUSTOM").map((a) => (
+          <div key={a.value} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50">
+            <Checkbox id={`alg-${a.value}`} checked={selected.includes(a.value)} onCheckedChange={() => toggle(a.value)} />
+            <Label htmlFor={`alg-${a.value}`} className="flex-1 cursor-pointer font-medium">{a.label}</Label>
           </div>
         ))}
       </div>

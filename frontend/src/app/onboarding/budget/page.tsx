@@ -46,9 +46,9 @@ export default function BudgetPage() {
             className="grid gap-3 sm:grid-cols-2"
           >
             {BUDGET_TYPES.map((b) => (
-              <div key={b} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
-                <RadioGroupItem value={b} id={`budg-${b}`} />
-                <Label htmlFor={`budg-${b}`} className="flex-1 cursor-pointer font-medium">{b}</Label>
+              <div key={b.value} className="flex items-center space-x-3 border rounded-lg p-4 cursor-pointer hover:bg-muted/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                <RadioGroupItem value={b.value} id={`budg-${b.value}`} />
+                <Label htmlFor={`budg-${b.value}`} className="flex-1 cursor-pointer font-medium">{b.label}</Label>
               </div>
             ))}
           </RadioGroup>

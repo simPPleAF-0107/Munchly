@@ -42,11 +42,11 @@ export default function DietaryPreferencePage() {
           className="grid gap-4 sm:grid-cols-2"
         >
           {DIET_TYPES.map((dt) => (
-            <div key={dt} className="flex flex-col space-y-2 border-2 rounded-xl p-4 cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 relative">
+            <div key={dt.value} className="flex flex-col space-y-2 border-2 rounded-xl p-4 cursor-pointer hover:border-primary/50 transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5 relative">
               <div className="flex items-center space-x-3">
-                <RadioGroupItem value={dt} id={`diet-${dt}`} />
-                <Label htmlFor={`diet-${dt}`} className="cursor-pointer text-lg font-medium flex-1">
-                  {dt}
+                <RadioGroupItem value={dt.value} id={`diet-${dt.value}`} />
+                <Label htmlFor={`diet-${dt.value}`} className="cursor-pointer text-lg font-medium flex-1">
+                  {dt.emoji} {dt.label}
                 </Label>
               </div>
             </div>

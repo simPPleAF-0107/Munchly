@@ -1,92 +1,115 @@
 export const DIET_TYPES = [
-  "Omnivore",
-  "Vegetarian",
-  "Vegan",
-  "Pescatarian",
-  "Keto",
-  "Paleo",
-  "Mediterranean"
+  { value: "VEGAN", label: "Vegan", emoji: "🌱" },
+  { value: "VEGETARIAN", label: "Vegetarian", emoji: "🥬" },
+  { value: "EGGETARIAN", label: "Eggetarian", emoji: "🥚" },
+  { value: "NON_VEGETARIAN", label: "Non-Vegetarian", emoji: "🍗" },
 ] as const;
 
 export const ACTIVITY_LEVELS = [
-  "Sedentary",
-  "Lightly Active",
-  "Moderately Active",
-  "Very Active",
-  "Extra Active"
+  { value: "SEDENTARY", label: "Sedentary" },
+  { value: "LIGHTLY_ACTIVE", label: "Lightly Active" },
+  { value: "MODERATELY_ACTIVE", label: "Moderately Active" },
+  { value: "VERY_ACTIVE", label: "Very Active" },
+  { value: "EXTREMELY_ACTIVE", label: "Extremely Active" },
 ] as const;
 
 export const HEALTH_GOALS = [
-  "Weight Loss",
-  "Muscle Gain",
-  "Maintenance",
-  "Heart Health",
-  "Energy Boost"
+  { value: "LOSE_WEIGHT", label: "Lose Weight" },
+  { value: "MAINTAIN_WEIGHT", label: "Maintain Weight" },
+  { value: "GAIN_WEIGHT", label: "Gain Weight" },
+  { value: "BUILD_MUSCLE", label: "Build Muscle" },
+  { value: "IMPROVE_FITNESS", label: "Improve Fitness" },
+  { value: "EAT_HEALTHIER", label: "Eat Healthier" },
 ] as const;
 
 export const MEAL_TYPES = [
-  "Breakfast",
-  "Lunch",
-  "Dinner",
-  "Snack"
+  { value: "BREAKFAST", label: "Breakfast" },
+  { value: "LUNCH", label: "Lunch" },
+  { value: "DINNER", label: "Dinner" },
 ] as const;
 
 export const ALLERGENS = [
-  "Dairy",
-  "Egg",
-  "Tree Nut",
-  "Peanut",
-  "Shellfish",
-  "Wheat",
-  "Soy",
-  "Fish",
-  "Sesame"
+  { value: "PEANUTS", label: "Peanuts" },
+  { value: "TREE_NUTS", label: "Tree Nuts" },
+  { value: "MILK", label: "Milk" },
+  { value: "EGGS", label: "Eggs" },
+  { value: "SOY", label: "Soy" },
+  { value: "WHEAT", label: "Wheat" },
+  { value: "FISH", label: "Fish" },
+  { value: "SHELLFISH", label: "Shellfish" },
+  { value: "SESAME", label: "Sesame" },
+  { value: "CUSTOM", label: "Custom" },
 ] as const;
 
 export const MEDICAL_CONDITIONS = [
-  "Diabetes Type 1",
-  "Diabetes Type 2",
-  "Hypertension",
-  "Celiac Disease",
-  "IBS",
-  "PCOS"
+  { value: "NONE", label: "None" },
+  { value: "DIABETES", label: "Diabetes" },
+  { value: "PREDIABETES", label: "Prediabetes" },
+  { value: "HIGH_BLOOD_PRESSURE", label: "High Blood Pressure" },
+  { value: "HIGH_CHOLESTEROL", label: "High Cholesterol" },
+  { value: "ANEMIA", label: "Anemia" },
+  { value: "GERD", label: "GERD" },
+  { value: "OTHER", label: "Other" },
 ] as const;
 
 export const DIETARY_RESTRICTIONS = [
-  "Gluten-Free",
-  "Dairy-Free",
-  "Low-FODMAP",
-  "Halal",
-  "Kosher",
-  "Low-Sodium",
-  "Low-Sugar"
+  { value: "GLUTEN_FREE", label: "Gluten Free" },
+  { value: "LACTOSE_FREE", label: "Lactose Free" },
+  { value: "LOW_CARB", label: "Low Carb" },
+  { value: "LOW_SODIUM", label: "Low Sodium" },
+  { value: "LOW_SUGAR", label: "Low Sugar" },
+  { value: "HIGH_PROTEIN", label: "High Protein" },
+  { value: "KETO", label: "Keto" },
+  { value: "OTHER", label: "Other" },
 ] as const;
 
 export const CUISINES = [
-  { name: "Italian", emoji: "🇮🇹" },
-  { name: "Indian", emoji: "🇮🇳" },
-  { name: "Mexican", emoji: "🇲🇽" },
-  { name: "Japanese", emoji: "🇯🇵" },
-  { name: "Chinese", emoji: "🇨🇳" },
-  { name: "Mediterranean", emoji: "🇬🇷" },
-  { name: "American", emoji: "🇺🇸" },
-  { name: "Thai", emoji: "🇹🇭" },
-  { name: "Korean", emoji: "🇰🇷" },
-  { name: "French", emoji: "🇫🇷" }
+  { value: "INDIAN", label: "Indian", emoji: "🇮🇳" },
+  { value: "BENGALI", label: "Bengali", emoji: "🇮🇳" },
+  { value: "NORTH_INDIAN", label: "North Indian", emoji: "🇮🇳" },
+  { value: "SOUTH_INDIAN", label: "South Indian", emoji: "🇮🇳" },
+  { value: "PUNJABI", label: "Punjabi", emoji: "🇮🇳" },
+  { value: "GUJARATI", label: "Gujarati", emoji: "🇮🇳" },
+  { value: "MAHARASHTRIAN", label: "Maharashtrian", emoji: "🇮🇳" },
+  { value: "KERALA", label: "Kerala", emoji: "🇮🇳" },
+  { value: "HYDERABADI", label: "Hyderabadi", emoji: "🇮🇳" },
+  { value: "CHINESE", label: "Chinese", emoji: "🇨🇳" },
+  { value: "ITALIAN", label: "Italian", emoji: "🇮🇹" },
+  { value: "WESTERN", label: "Western", emoji: "🍔" },
+  { value: "MEXICAN", label: "Mexican", emoji: "🇲🇽" },
+  { value: "OTHER", label: "Other", emoji: "🌍" },
 ] as const;
 
 export const COOKING_ABILITIES = [
-  "Beginner",
-  "Intermediate",
-  "Advanced",
-  "Expert"
+  { value: "MINIMAL", label: "Minimal" },
+  { value: "BASIC", label: "Basic" },
+  { value: "MODERATE", label: "Moderate" },
+  { value: "ADVANCED", label: "Advanced" },
 ] as const;
 
 export const BUDGET_TYPES = [
-  "Economy",
-  "Moderate",
-  "Premium",
-  "Luxury"
+  { value: "GROCERIES_ONLY", label: "Groceries Only" },
+  { value: "GROCERIES_AND_EATING_OUT", label: "Groceries & Eating Out" },
+] as const;
+
+export const PREFERENCE_TYPES = [
+  { value: "LIKE", label: "Like" },
+  { value: "DISLIKE", label: "Dislike" },
+  { value: "NEVER", label: "Never" },
+] as const;
+
+export const GENDERS = [
+  { value: "MALE", label: "Male" },
+  { value: "FEMALE", label: "Female" },
+  { value: "OTHER", label: "Other" },
+] as const;
+
+export const REPLACEMENT_REASONS = [
+  { value: "TOO_EXPENSIVE", label: "Too expensive" },
+  { value: "DONT_LIKE_INGREDIENTS", label: "Don't like the ingredients" },
+  { value: "TOO_HARD_TO_COOK", label: "Too hard to cook" },
+  { value: "NOT_ENOUGH_TIME", label: "Not enough time" },
+  { value: "WANT_SOMETHING_ELSE", label: "Just want something else" },
 ] as const;
 
 export const ONBOARDING_STEPS = [
@@ -98,10 +121,10 @@ export const ONBOARDING_STEPS = [
   { path: "/onboarding/budget", title: "Budget", description: "Your budget and cooking ability" }
 ];
 
-export const REPLACEMENT_REASONS = [
-  "Too expensive",
-  "Don't like the ingredients",
-  "Too hard to cook",
-  "Not enough time",
-  "Just want something else"
-] as const;
+export function getLabel(items: readonly {value: string; label: string}[], value: string): string {
+  return items.find(i => i.value === value)?.label ?? value;
+}
+
+export function getEmoji(items: readonly {value: string; emoji?: string}[], value: string): string {
+  return (items.find(i => i.value === value) as any)?.emoji ?? '';
+}
