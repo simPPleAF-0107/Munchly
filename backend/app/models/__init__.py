@@ -16,3 +16,4 @@ from app.models.grocery import ShoppingList, ShoppingListItem
 from app.models.medical_rule import MedicalRule, MedicalRuleConstraint
 from app.models.event import UserEvent
 from app.models.lifestyle import UserLifestyle
+from app.models.daily_context import DailyContext

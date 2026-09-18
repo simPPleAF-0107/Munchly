@@ -244,3 +244,29 @@ class WorkoutTiming(str, enum.Enum):
     AFTERNOON = "AFTERNOON"
     EVENING = "EVENING"
     NO_FIXED_TIME = "NO_FIXED_TIME"
+
+class EnergyLevel(str, enum.Enum):
+    LOW = "LOW"
+    NORMAL = "NORMAL"
+    HIGH = "HIGH"
+
+class FoodMood(str, enum.Enum):
+    """What kind of food does the user feel like today?"""
+    LIGHT = "LIGHT"           # Salads, soups, light meals
+    COMFORT = "COMFORT"       # Rich, warming, familiar
+    ADVENTUROUS = "ADVENTUROUS" # Try something new
+    QUICK = "QUICK"           # Fast, easy, minimal effort
+    HEALTHY = "HEALTHY"       # Extra clean eating today
+    INDULGENT = "INDULGENT"   # Treat day
+    NO_PREFERENCE = "NO_PREFERENCE"
+
+class EatingLocation(str, enum.Enum):
+    HOME = "HOME"
+    OFFICE = "OFFICE"
+    OUT = "OUT"
+    MIXED = "MIXED"
+
+class DailyCheckInStatus(str, enum.Enum):
+    PENDING = "PENDING"
+    COMPLETED = "COMPLETED"
+    SKIPPED = "SKIPPED"
