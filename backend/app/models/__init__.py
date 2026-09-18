@@ -14,3 +14,4 @@ from app.models.recipe import (
 from app.models.meal_plan import MealPlan, MealPlanMeal, MealOption, MealHistory
 from app.models.grocery import ShoppingList, ShoppingListItem
 from app.models.medical_rule import MedicalRule, MedicalRuleConstraint
+from app.models.event import UserEvent

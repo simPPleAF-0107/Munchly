@@ -23,6 +23,29 @@ class Food(UUIDMixin, Base):
     seasonality: Mapped[Optional[str]] = mapped_column(String(20), nullable=True)
     nutrition_source: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     nutrition_source_id: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
+    
+    # Data quality metadata
+    nutrition_source_date: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True,
+        comment="When was source data published")
+    nutrient_completeness: Mapped[Optional[float]] = mapped_column(Numeric(4, 3), nullable=True,
+        comment="0.0 to 1.0 — fraction of nutrients with data")
+    last_verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True,
+        comment="Last manual/automated quality check")
+    
+    # Micronutrients (per 100g)
+    calcium_mg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(7, 2), nullable=True)
+    iron_mg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(6, 2), nullable=True)
+    magnesium_mg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(6, 2), nullable=True)
+    potassium_mg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(7, 2), nullable=True)
+    zinc_mg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(6, 2), nullable=True)
+    vitamin_a_mcg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(7, 2), nullable=True)
+    vitamin_b12_mcg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(6, 2), nullable=True)
+    vitamin_c_mg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(6, 2), nullable=True)
+    vitamin_d_mcg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(6, 2), nullable=True)
+    folate_mcg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(7, 2), nullable=True)
+    phosphorus_mg_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(7, 2), nullable=True)
+    sugar_g_per_100g: Mapped[Optional[float]] = mapped_column(Numeric(6, 2), nullable=True)
+
     created_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
     # Relationships
@@ -73,6 +96,10 @@ class FoodPrice(UUIDMixin, Base):
     typical_package_price: Mapped[Optional[float]] = mapped_column(Numeric(10, 2), nullable=True)
     source: Mapped[Optional[str]] = mapped_column(String(50), nullable=True)
     source_url: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
+    last_verified_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True,
+        comment="Last manual/automated price check")
+    price_source_date: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True,
+        comment="When was this price observed")
     updated_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
 
     # Relationships

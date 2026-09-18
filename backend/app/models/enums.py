@@ -142,3 +142,42 @@ class Difficulty(str, enum.Enum):
 class MealPlanStatus(str, enum.Enum):
     ACTIVE = "ACTIVE"
     ARCHIVED = "ARCHIVED"
+
+class EventType(str, enum.Enum):
+    """Immutable behavioral event types."""
+    # Meal plan events
+    MEAL_SUGGESTED = "MEAL_SUGGESTED"
+    MEAL_VIEWED = "MEAL_VIEWED"
+    MEAL_SELECTED = "MEAL_SELECTED"
+    MEAL_EATEN = "MEAL_EATEN"
+    MEAL_SKIPPED = "MEAL_SKIPPED"
+    MEAL_REPLACED = "MEAL_REPLACED"
+    MEAL_FAVORITED = "MEAL_FAVORITED"
+    # Feedback events
+    FEEDBACK_SUBMITTED = "FEEDBACK_SUBMITTED"
+    INGREDIENT_REJECTED = "INGREDIENT_REJECTED"
+    PREFERENCE_UPDATED = "PREFERENCE_UPDATED"
+    # Check-in events
+    DAILY_CHECKIN = "DAILY_CHECKIN"
+    PANTRY_UPDATED = "PANTRY_UPDATED"
+    CRAVING_OVERRIDE = "CRAVING_OVERRIDE"
+    # Plan events
+    PLAN_GENERATED = "PLAN_GENERATED"
+    PLAN_VALIDATED = "PLAN_VALIDATED"
+    CONFLICT_RESOLVED = "CONFLICT_RESOLVED"
+
+class NutritionConfidence(str, enum.Enum):
+    """How trustworthy is the nutrition data for a recipe."""
+    VERIFIED = "VERIFIED"         # Direct from IFCT/USDA with source_id
+    CALCULATED = "CALCULATED"     # Computed from VERIFIED ingredient data
+    ESTIMATED = "ESTIMATED"       # Some ingredient data missing
+    INCOMPLETE = "INCOMPLETE"     # >30% data gaps
+
+class PlanChangeLevel(str, enum.Enum):
+    """Plan stability levels - default to smallest possible change."""
+    UNCHANGED = "UNCHANGED"
+    MINOR_ADJUSTMENT = "MINOR_ADJUSTMENT"
+    MEAL_REPLACED = "MEAL_REPLACED"
+    DAY_REOPTIMIZED = "DAY_REOPTIMIZED"
+    FULL_REGENERATION = "FULL_REGENERATION"
+

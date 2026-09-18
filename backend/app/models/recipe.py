@@ -25,6 +25,25 @@ class Recipe(UUIDMixin, Base):
     instructions: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
     image_url: Mapped[Optional[str]] = mapped_column(String(500), nullable=True)
     nutrition_computed_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
+    
+    # Nutrition confidence
+    nutrition_confidence: Mapped[Optional[str]] = mapped_column(String(20), nullable=True,
+        comment="VERIFIED | CALCULATED | ESTIMATED | INCOMPLETE")
+    
+    # Cached micronutrient totals (computed from ingredients)
+    calcium_mg: Mapped[Optional[float]] = mapped_column(Numeric(7, 1), nullable=True)
+    iron_mg: Mapped[Optional[float]] = mapped_column(Numeric(6, 1), nullable=True)
+    magnesium_mg: Mapped[Optional[float]] = mapped_column(Numeric(6, 1), nullable=True)
+    potassium_mg: Mapped[Optional[float]] = mapped_column(Numeric(7, 1), nullable=True)
+    zinc_mg: Mapped[Optional[float]] = mapped_column(Numeric(6, 1), nullable=True)
+    vitamin_a_mcg: Mapped[Optional[float]] = mapped_column(Numeric(7, 1), nullable=True)
+    vitamin_b12_mcg: Mapped[Optional[float]] = mapped_column(Numeric(6, 1), nullable=True)
+    vitamin_c_mg: Mapped[Optional[float]] = mapped_column(Numeric(6, 1), nullable=True)
+    vitamin_d_mcg: Mapped[Optional[float]] = mapped_column(Numeric(6, 1), nullable=True)
+    folate_mcg: Mapped[Optional[float]] = mapped_column(Numeric(7, 1), nullable=True)
+    phosphorus_mg: Mapped[Optional[float]] = mapped_column(Numeric(7, 1), nullable=True)
+    sugar_g: Mapped[Optional[float]] = mapped_column(Numeric(6, 1), nullable=True)
+
     created_at: Mapped[Optional[datetime]] = mapped_column(DateTime, nullable=True)
 
     # Relationships
