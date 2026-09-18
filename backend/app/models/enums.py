@@ -270,3 +270,46 @@ class DailyCheckInStatus(str, enum.Enum):
     PENDING = "PENDING"
     COMPLETED = "COMPLETED"
     SKIPPED = "SKIPPED"
+
+class PreferenceTier(str, enum.Enum):
+    """5-tier preference hierarchy. Architecturally enforced.
+    
+    PREFERENCE/DISLIKE/AVOIDANCE -> Recommendation scoring layer
+    MEDICAL/ALLERGY -> Constraint/Safety layer
+    
+    Behavioral learning can NEVER escalate into MEDICAL or ALLERGY.
+    """
+    PREFERENCE = "PREFERENCE"   # Soft score boost
+    DISLIKE = "DISLIKE"         # Strong score penalty
+    AVOIDANCE = "AVOIDANCE"     # Persistent penalty (reversible)
+    MEDICAL = "MEDICAL"         # Hard constraint (validated rules only)
+    ALLERGY = "ALLERGY"         # Safety-critical hard constraint
+
+class FeedbackType(str, enum.Enum):
+    """Type of feedback action."""
+    REJECTION = "REJECTION"           # Don't want this meal
+    INGREDIENT_REJECTION = "INGREDIENT_REJECTION"  # Don't want this ingredient
+    POSITIVE = "POSITIVE"             # Liked this meal
+    PORTION_TOO_LARGE = "PORTION_TOO_LARGE"
+    PORTION_TOO_SMALL = "PORTION_TOO_SMALL"
+    TOO_COMPLEX = "TOO_COMPLEX"
+    TOO_EXPENSIVE = "TOO_EXPENSIVE"
+    NOT_FILLING = "NOT_FILLING"
+    TOO_REPETITIVE = "TOO_REPETITIVE"
+    WRONG_CUISINE = "WRONG_CUISINE"
+    DONT_LIKE_TASTE = "DONT_LIKE_TASTE"
+
+class FeedbackScope(str, enum.Enum):
+    """How long should this feedback apply?"""
+    TODAY = "TODAY"           # Only exclude from today's remaining meals
+    FUTURE = "FUTURE"         # Penalize in future recommendations (DISLIKE)
+    PERMANENT = "PERMANENT"   # Never suggest again (NEVER/AVOIDANCE)
+
+class ConflictType(str, enum.Enum):
+    """Types of constraint conflicts."""
+    BUDGET_VS_NUTRITION = "BUDGET_VS_NUTRITION"
+    DIET_VS_PROTEIN = "DIET_VS_PROTEIN"
+    RESTRICTIONS_VS_VARIETY = "RESTRICTIONS_VS_VARIETY"
+    TIME_VS_NUTRITION = "TIME_VS_NUTRITION"
+    PREFERENCES_VS_BUDGET = "PREFERENCES_VS_BUDGET"
+    MULTIPLE_RESTRICTIONS = "MULTIPLE_RESTRICTIONS"
