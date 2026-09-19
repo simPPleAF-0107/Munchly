@@ -71,6 +71,8 @@ class AdequacyValidator:
         cls,
         plan_meals: List[Dict[str, Any]],
         nutrient_profile: Any,
+        user_allergens: Optional[List[str]] = None,
+        weekly_budget: Optional[float] = None,
     ) -> ValidationResult:
         """Validate a meal plan against a user's nutrient profile.
         
@@ -78,6 +80,8 @@ class AdequacyValidator:
             plan_meals: List of meal dicts with keys:
                 day_of_week, meal_type, recipe (with nutrition fields)
             nutrient_profile: NutrientProfile from NutrientProfileService
+            user_allergens: Optional list of user allergens to check against
+            weekly_budget: Optional float for maximum weekly cost
         
         Checks:
             1. Daily calories within ±15% of target for each day
@@ -93,7 +97,9 @@ class AdequacyValidator:
         daily_totals: Dict[int, Dict[str, float]] = {}
         weekly_totals: Dict[str, float] = {}
         
-        # Accumulate daily nutrition
+        total_price = 0.0
+        
+        # Accumulate daily nutrition and total price, and check allergens
         for meal in plan_meals:
             day = meal.get("day_of_week", 1)
             recipe = meal.get("recipe", {})
@@ -107,6 +113,31 @@ class AdequacyValidator:
                     "vitamin_b12_mcg": 0, "vitamin_c_mg": 0, "vitamin_d_mcg": 0,
                     "folate_mcg": 0, "phosphorus_mg": 0, "sugar_g": 0,
                 }
+            
+            recipe_price = 0.0
+            recipe_allergens = []
+            if isinstance(recipe, dict):
+                recipe_price = float(recipe.get("price", 0) or 0)
+                recipe_allergens = recipe.get("allergens", [])
+            else:
+                recipe_price = float(getattr(recipe, "price", 0) or 0)
+                recipe_allergens = getattr(recipe, "allergens", [])
+                
+            total_price += recipe_price
+            
+            if user_allergens:
+                for allergen in user_allergens:
+                    if allergen in recipe_allergens:
+                        violations.append(Violation(
+                            nutrient="allergen",
+                            level="MEAL",
+                            day=day,
+                            actual=1,
+                            target=0,
+                            threshold_pct=1.0,
+                            severity="VIOLATION",
+                            message=f"Allergen {allergen} present in recipe",
+                        ))
             
             for nutrient in daily_totals[day]:
                 val = 0
@@ -224,6 +255,19 @@ class AdequacyValidator:
             if fiber_target > 0:
                 daily_coverage[day]["fiber_g"] = round(totals["fiber_g"] / fiber_target, 3)
         
+        # Check 6: Budget
+        if weekly_budget and total_price > weekly_budget:
+            violations.append(Violation(
+                nutrient="budget",
+                level="WEEK",
+                day=None,
+                actual=total_price,
+                target=weekly_budget,
+                threshold_pct=1.0,
+                severity="VIOLATION",
+                message=f"Total cost {total_price:.2f} exceeds weekly budget {weekly_budget:.2f}",
+            ))
+            
         passed = len([v for v in violations if v.severity == "VIOLATION"]) == 0
         
         return ValidationResult(
