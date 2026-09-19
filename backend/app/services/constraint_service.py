@@ -166,29 +166,4 @@ class ConstraintService:
         recipes = list(result.scalars().unique().all())
         return recipes
 
-    # The helper methods were defined in the prompt to explain the logic,
-    # but the instructions also said:
-    # "IMPORTANT IMPLEMENTATION APPROACH: For efficiency, build this as a SINGLE optimized query rather than N+1 queries. Use SQLAlchemy joins and subqueries"
-    # Which we have done above. However, the prompt also gave signatures for the helper methods.
-    # To strictly follow the provided structure in the prompt, I will add the helper methods
-    # but implement them as parts of the query builder or just as requested for interface parity.
 
-    async def _check_diet_compatibility(self, user_diet: DietType, recipe_id: uuid.UUID) -> bool:
-        # Implemented in main query
-        pass
-
-    async def _check_nonveg_subfilters(self, user_pref: UserDietaryPreference, recipe: Recipe) -> bool:
-        # Implemented in main query
-        pass
-
-    async def _check_allergens(self, user_allergens: list[Allergen], recipe_id: uuid.UUID) -> bool:
-        # Implemented in main query
-        pass
-
-    async def _check_never_foods(self, user_never_foods: list[uuid.UUID], recipe_id: uuid.UUID) -> bool:
-        # Implemented in main query
-        pass
-
-    async def _check_medical_per_meal(self, user_conditions: list, recipe: Recipe) -> bool:
-        # Implemented in main query
-        pass
