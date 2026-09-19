@@ -29,11 +29,11 @@ class NutritionService:
         female_bmr = 10 * weight_kg + 6.25 * height_cm - 5 * age - 161
         
         if gender.upper() == "MALE":
-            return int(male_bmr)
+            return round(male_bmr)
         elif gender.upper() == "FEMALE":
-            return int(female_bmr)
+            return round(female_bmr)
         else:
-            return int((male_bmr + female_bmr) / 2)
+            return round((male_bmr + female_bmr) / 2)
     
     @staticmethod
     def calculate_tdee(bmr: int, activity_level: str) -> int:
