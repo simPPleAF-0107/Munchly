@@ -1,5 +1,5 @@
 import uuid
-from datetime import date, datetime
+from datetime import date, datetime, timezone
 from typing import Optional, List, Dict, Any
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -90,8 +90,8 @@ class DailyContextService:
         )
         
         ctx.status = DailyCheckInStatus.COMPLETED
-        ctx.checked_in_at = datetime.utcnow()
-        ctx.updated_at = datetime.utcnow()
+        ctx.checked_in_at = datetime.now(timezone.utc)
+        ctx.updated_at = datetime.now(timezone.utc)
         
         await self.db.flush()
         
@@ -118,8 +118,8 @@ class DailyContextService:
         """Skip today's check-in. Skip must always be available."""
         ctx = await self.get_or_create_today(user_id)
         ctx.status = DailyCheckInStatus.SKIPPED
-        ctx.checked_in_at = datetime.utcnow()
-        ctx.updated_at = datetime.utcnow()
+        ctx.checked_in_at = datetime.now(timezone.utc)
+        ctx.updated_at = datetime.now(timezone.utc)
         await self.db.flush()
         return ctx
 
@@ -134,7 +134,7 @@ class DailyContextService:
         """
         ctx = await self.get_or_create_today(user_id)
         ctx.pantry_food_ids = food_ids
-        ctx.updated_at = datetime.utcnow()
+        ctx.updated_at = datetime.now(timezone.utc)
         await self.db.flush()
         
         # Emit event
@@ -163,7 +163,7 @@ class DailyContextService:
         ctx = await self.get_or_create_today(user_id)
         ctx.craving_recipe_id = recipe_id
         ctx.craving_meal_type = meal_type
-        ctx.updated_at = datetime.utcnow()
+        ctx.updated_at = datetime.now(timezone.utc)
         await self.db.flush()
         
         # Emit event

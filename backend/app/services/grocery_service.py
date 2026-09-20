@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from collections import defaultdict
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -63,7 +63,7 @@ class GroceryService:
             id=uuid.uuid4(),
             meal_plan_id=meal_plan_id,
             cost_currency="INR",
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
         self.db.add(shopping_list)
         await self.db.flush()

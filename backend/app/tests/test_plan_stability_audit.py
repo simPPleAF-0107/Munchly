@@ -44,6 +44,7 @@ async def test_skip_check_in_produces_unchanged():
 async def test_meal_rejection_produces_meal_replaced(mock_emit):
     """4. Meal rejection produces MEAL_REPLACED or appropriate level"""
     db_mock = AsyncMock()
+    db_mock.add = MagicMock()  # db.add is synchronous
     mock_result = MagicMock()
     mock_result.scalar_one_or_none.return_value = None
     db_mock.execute.return_value = mock_result
@@ -65,6 +66,7 @@ async def test_meal_rejection_produces_meal_replaced(mock_emit):
 async def test_positive_feedback_produces_unchanged(mock_emit):
     """5. Positive feedback produces UNCHANGED (no plan modification needed)"""
     db_mock = AsyncMock()
+    db_mock.add = MagicMock()  # db.add is synchronous
     mock_result = MagicMock()
     mock_result.scalar_one_or_none.return_value = None
     db_mock.execute.return_value = mock_result
@@ -87,6 +89,7 @@ async def test_positive_feedback_produces_unchanged(mock_emit):
 async def test_ingredient_rejection_produces_day_reoptimized_or_meal_replaced(mock_emit):
     """6. Ingredient rejection (PERMANENT) produces DAY_REOPTIMIZED or MEAL_REPLACED"""
     db_mock = AsyncMock()
+    db_mock.add = MagicMock()  # db.add is synchronous
     mock_result = MagicMock()
     mock_result.scalar_one_or_none.return_value = None
     db_mock.execute.return_value = mock_result

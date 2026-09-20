@@ -1,5 +1,5 @@
 import uuid
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from typing import List, Dict, Optional, Set
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select, and_, delete
@@ -66,7 +66,7 @@ class MealPlanService:
             week_start_date=week_start_date,
             cost_currency="INR", # Default
             status=MealPlanStatus.ACTIVE,
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
         self.db.add(meal_plan)
         
@@ -233,7 +233,7 @@ class MealPlanService:
             meal_plan_meal_id=meal_plan_meal.id,
             action=MealAction.EATEN, # Placeholder for replacement action
             replacement_reason=reason,
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
         self.db.add(history)
         
@@ -279,7 +279,7 @@ class MealPlanService:
             recipe_id=meal_plan_meal.selected_recipe_id,
             meal_plan_meal_id=meal_plan_meal.id,
             action=action_enum,
-            created_at=datetime.utcnow()
+            created_at=datetime.now(timezone.utc)
         )
         self.db.add(history)
         await self.db.commit()

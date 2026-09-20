@@ -117,9 +117,9 @@ class TestRecipeDataQuality:
 class TestPriceFreshness:
     def test_fresh_price(self):
         """Price updated recently = fresh."""
-        from datetime import datetime, timedelta
+        from datetime import datetime, timedelta, timezone
         price = MagicMock()
-        price.updated_at = datetime.utcnow() - timedelta(days=30)
+        price.updated_at = datetime.now(timezone.utc) - timedelta(days=30)
         price.source = "manual_survey"
         price.last_verified_at = None
         
@@ -129,9 +129,9 @@ class TestPriceFreshness:
 
     def test_stale_price(self):
         """Price updated 120 days ago = stale."""
-        from datetime import datetime, timedelta
+        from datetime import datetime, timedelta, timezone
         price = MagicMock()
-        price.updated_at = datetime.utcnow() - timedelta(days=120)
+        price.updated_at = datetime.now(timezone.utc) - timedelta(days=120)
         price.source = "manual_survey"
         price.last_verified_at = None
         

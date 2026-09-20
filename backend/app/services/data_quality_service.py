@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import List, Optional
 
 from app.models.food import Food, FoodPrice
@@ -190,7 +190,7 @@ class DataQualityService:
     @staticmethod
     def assess_price_freshness(food_price: FoodPrice) -> PriceFreshness:
         """Check how fresh/stale a price entry is."""
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         
         # Use last_verified_at if available, else updated_at
         check_date = getattr(food_price, 'last_verified_at', None) or food_price.updated_at
@@ -205,7 +205,6 @@ class DataQualityService:
         
         # Handle timezone-aware vs naive datetimes
         if check_date.tzinfo is not None:
-            from datetime import timezone
             now = datetime.now(timezone.utc)
         
         delta = now - check_date
